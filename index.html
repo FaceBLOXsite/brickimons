@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Brickimons — Coming Soon</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #080d14;
+      --panel: #101823;
+      --panel-light: #121d2a;
+
+      --text: #f3f7fc;
+      --muted: #8290a3;
+      --muted-light: #a5b0bf;
+
+      --blue: #3d96f5;
+      --blue-dark: #2677cf;
+      --blue-soft: rgba(61, 150, 245, 0.12);
+
+      --border: #1b2a3b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(35, 105, 180, 0.11),
+          transparent 55%
+        ),
+        radial-gradient(
+          circle at 10% 90%,
+          rgba(31, 83, 140, 0.06),
+          transparent 35%
+        ),
+        #080d14;
+
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       BACKGROUND DECORATIONS
+       ========================================================= */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .shape {
+      position: absolute;
+      border: 1px solid rgba(61, 150, 245, 0.08);
+      background: rgba(61, 150, 245, 0.018);
+      border-radius: 14px;
+      box-shadow:
+        inset 0 0 30px rgba(61, 150, 245, 0.015),
+        0 0 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .shape::before,
+    .shape::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: rgba(61, 150, 245, 0.045);
+    }
+
+    .shape::before {
+      top: 18px;
+      left: 18px;
+    }
+
+    .shape::after {
+      right: 18px;
+      bottom: 18px;
+    }
+
+    .shape-1 {
+      width: 170px;
+      height: 170px;
+      top: 5%;
+      left: 7%;
+      transform: rotate(-12deg);
+    }
+
+    .shape-2 {
+      width: 105px;
+      height: 105px;
+      top: 17%;
+      right: 10%;
+      transform: rotate(17deg);
+    }
+
+    .shape-3 {
+      width: 220px;
+      height: 220px;
+      right: 3%;
+      bottom: -35px;
+      transform: rotate(-15deg);
+    }
+
+    .shape-4 {
+      width: 85px;
+      height: 85px;
+      left: 13%;
+      bottom: 13%;
+      transform: rotate(25deg);
+    }
+
+    .shape-5 {
+      width: 55px;
+      height: 55px;
+      top: 40%;
+      left: 4%;
+      transform: rotate(20deg);
+    }
+
+    .shape-6 {
+      width: 70px;
+      height: 70px;
+      top: 62%;
+      right: 7%;
+      transform: rotate(-20deg);
+    }
+
+    /* =========================================================
+       MAIN
+       ========================================================= */
+
+    .page {
+      position: relative;
+      z-index: 1;
+
+      min-height: 100vh;
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: min(720px, 100%);
+      text-align: center;
+    }
+
+    /* =========================================================
+       LOGO
+       ========================================================= */
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 42px;
+
+      color: #f5f8fc;
+
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -2.5px;
+
+      text-shadow:
+        0 0 25px rgba(61, 150, 245, 0.08);
+    }
+
+    .logo-icon {
+      position: relative;
+
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--blue);
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 4px 0 var(--blue-dark),
+        0 8px 25px rgba(61, 150, 245, 0.16);
+
+      transform: rotate(-3deg);
+    }
+
+    .logo-icon::before,
+    .logo-icon::after {
+      content: "";
+
+      position: absolute;
+
+      width: 9px;
+      height: 9px;
+
+      border-radius: 3px;
+
+      background: white;
+    }
+
+    .logo-icon::before {
+      top: 8px;
+      left: 8px;
+    }
+
+    .logo-icon::after {
+      right: 8px;
+      bottom: 8px;
+    }
+
+    /* =========================================================
+       CARD
+       ========================================================= */
+
+    .card {
+      position: relative;
+
+      padding: 64px 55px 55px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(18, 29, 42, 0.96),
+          rgba(13, 21, 31, 0.96)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 22px;
+
+      box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.42),
+        0 2px 8px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.018);
+
+      overflow: hidden;
+    }
+
+    /* Small blue glow inside the card */
+    .card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 350px;
+      height: 350px;
+
+      top: -250px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      background: rgba(61, 150, 245, 0.08);
+
+      filter: blur(70px);
+
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================================================
+       EYEBROW
+       ========================================================= */
+
+    .eyebrow {
+      display: inline-block;
+
+      padding: 7px 13px;
+      margin-bottom: 21px;
+
+      background: var(--blue-soft);
+
+      border: 1px solid rgba(61, 150, 245, 0.13);
+      border-radius: 7px;
+
+      color: #62aaff;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       HEADLINE
+       ========================================================= */
+
+    h1 {
+      margin-bottom: 23px;
+
+      color: #f5f8fc;
+
+      font-size: clamp(48px, 8vw, 82px);
+      line-height: 0.95;
+
+      font-weight: 900;
+      letter-spacing: -4px;
+
+      text-shadow:
+        0 4px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .subtitle {
+      margin-bottom: 12px;
+
+      color: #d9e1eb;
+
+      font-size: clamp(17px, 3vw, 22px);
+      font-weight: 600;
+
+      line-height: 1.5;
+    }
+
+    .description {
+      max-width: 530px;
+
+      margin: 0 auto;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       STAY TUNED
+       ========================================================= */
+
+    .stay-tuned {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      margin-top: 36px;
+
+      color: #7f8da0;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--blue);
+
+      box-shadow:
+        0 0 10px rgba(61, 150, 245, 0.65);
+
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: scale(0.85);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* =========================================================
+       PROGRESS BAR
+       ========================================================= */
+
+    .progress-wrapper {
+      max-width: 430px;
+
+      margin: 34px auto 0;
+
+      text-align: left;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+
+      margin-bottom: 9px;
+
+      color: #657386;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .progress {
+      width: 100%;
+      height: 7px;
+
+      padding: 2px;
+
+      background: #0a111a;
+
+      border: 1px solid #182535;
+
+      border-radius: 99px;
+
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      width: 42%;
+      height: 100%;
+
+      border-radius: 99px;
+
+      background: linear-gradient(
+        90deg,
+        #287dcc,
+        #4aa2ff
+      );
+
+      box-shadow:
+        0 0 12px rgba(61, 150, 245, 0.3);
+
+      animation: loading 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes loading {
+      from {
+        width: 38%;
+      }
+
+      to {
+        width: 47%;
+      }
+    }
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+    .footer {
+      margin-top: 25px;
+
+      color: #4f5d6e;
+
+      font-size: 11px;
+      font-weight: 500;
+
+      letter-spacing: 0.1px;
+    }
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 600px) {
+      body {
+        overflow: auto;
+      }
+
+      .page {
+        min-height: 100vh;
+        padding: 25px 15px;
+      }
+
+      .logo {
+        margin-bottom: 30px;
+        font-size: 32px;
+        letter-spacing: -1.8px;
+      }
+
+      .logo-icon {
+        width: 31px;
+        height: 31px;
+      }
+
+      .logo-icon::before,
+      .logo-icon::after {
+        width: 7px;
+        height: 7px;
+      }
+
+      .card {
+        padding: 45px 24px 38px;
+        border-radius: 18px;
+      }
+
+      h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .shape-1 {
+        left: -80px;
+      }
+
+      .shape-2 {
+        right: -45px;
+      }
+
+      .shape-3 {
+        right: -100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       BACKGROUND
+       ======================================================== -->
+
+  <div class="background">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+    <div class="shape shape-6"></div>
+  </div>
+
+
+  <!-- =======================================================
+       PAGE
+       ======================================================== -->
+
+  <main class="page">
+
+    <div class="container">
+
+      <!-- LOGO -->
+
+      <div class="logo">
+        <div class="logo-icon"></div>
+        BRICKIMONS
+      </div>
+
+
+      <!-- MAIN CARD -->
+
+      <section class="card">
+
+        <div class="content">
+
+          <span class="eyebrow">
+            In Development
+          </span>
+
+
+          <h1>
+            COMING SOON
+          </h1>
+
+
+          <p class="subtitle">
+            The BrickPlanet item database is coming soon.
+          </p>
+
+
+          <p class="description">
+            Track items, values, owners, sales, and more —
+            all in one place.
+          </p>
+
+
+          <!-- STATUS -->
+
+          <div class="stay-tuned">
+            <span class="dot"></span>
+            Stay tuned for the launch
+          </div>
+
+
+          <!-- PROGRESS -->
+
+          <div class="progress-wrapper">
+
+            <div class="progress-label">
+              <span>Development</span>
+              <span>In progress</span>
+            </div>
+
+            <div class="progress">
+              <div class="progress-bar"></div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+        BRICKIMONS &nbsp;•&nbsp; A BrickPlanet community project
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
