@@ -1,524 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRICKIMONS — Coming Soon</title>
+  <meta name="description" content="BRICKIMONS is coming soon.">
 
-<title>Roblox Connection Finder</title>
-
-<style>
+  <style>
     * {
-        box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
     }
 
     body {
-        margin: 0;
-        min-height: 100vh;
-        background: #0b0d12;
-        color: white;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        padding: 40px 15px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(
+          circle at 50% 35%,
+          rgba(35, 104, 190, 0.18),
+          transparent 34%
+        ),
+        #050913;
+      color: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
     }
 
-    .box {
-        width: 100%;
-        max-width: 650px;
-        background: #151922;
-        border: 1px solid #272c38;
-        border-radius: 18px;
-        padding: 30px;
-        box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    .page {
+      width: min(720px, 100%);
+      text-align: center;
+      padding: 54px 28px;
+      border: 1px solid rgba(100, 150, 210, 0.16);
+      border-radius: 28px;
+      background: rgba(10, 20, 35, 0.72);
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.45),
+        0 0 60px rgba(30, 100, 190, 0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .logo {
+      width: min(280px, 70vw);
+      max-height: 150px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 36px;
+      filter: drop-shadow(
+        0 10px 28px rgba(35, 125, 235, 0.18)
+      );
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border: 1px solid rgba(80, 145, 220, 0.25);
+      border-radius: 999px;
+      background: rgba(35, 100, 180, 0.1);
+      color: #75adf2;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     h1 {
-        text-align: center;
-        margin: 0 0 8px;
+      margin: 0;
+      font-size: clamp(42px, 9vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
     }
 
-    .description {
-        text-align: center;
-        color: #9299a8;
-        margin-bottom: 30px;
+    p {
+      max-width: 520px;
+      margin: 22px auto 0;
+      color: #94a3b8;
+      font-size: clamp(16px, 2.5vw, 19px);
+      line-height: 1.65;
     }
 
-    label {
-        display: block;
-        margin-bottom: 7px;
-        font-weight: bold;
+    .line {
+      width: 72px;
+      height: 3px;
+      margin: 30px auto 0;
+      border-radius: 999px;
+      background: #3989df;
+      box-shadow: 0 0 22px rgba(57, 137, 223, 0.55);
     }
 
-    input {
-        width: 100%;
-        padding: 14px;
-        margin-bottom: 18px;
-        background: #0e1118;
-        color: white;
-        border: 1px solid #303746;
-        border-radius: 10px;
-        font-size: 16px;
-        outline: none;
+    .footer {
+      margin-top: 34px;
+      color: #526276;
+      font-size: 12px;
     }
-
-    input:focus {
-        border-color: #7c83ff;
-    }
-
-    button {
-        width: 100%;
-        padding: 14px;
-        border: 0;
-        border-radius: 10px;
-        background: #6366f1;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background: #5558df;
-    }
-
-    button:disabled {
-        opacity: .5;
-        cursor: wait;
-    }
-
-    #status {
-        text-align: center;
-        margin-top: 20px;
-        color: #aeb5c5;
-    }
-
-    #result {
-        margin-top: 25px;
-    }
-
-    .path {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .person {
-        width: 100%;
-        background: #202531;
-        border: 1px solid #303746;
-        border-radius: 12px;
-        padding: 16px;
-        text-align: center;
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-    .arrow {
-        font-size: 25px;
-        color: #818cf8;
-        padding: 5px;
-    }
-
-    .distance {
-        margin-top: 20px;
-        text-align: center;
-        color: #a5b4fc;
-        font-weight: bold;
-    }
-
-    .error {
-        color: #f87171;
-    }
-</style>
+  </style>
 </head>
 
 <body>
+  <main class="page">
 
-<div class="box">
+    <img
+      class="logo"
+      src="brickimonlogo.png"
+      alt="BRICKIMONS"
+    >
 
-    <h1>🔗 Roblox Connection Finder</h1>
+    <div class="eyebrow">BRICKIMONS</div>
 
-    <div class="description">
-        Find the shortest friend path between two Roblox users.
+    <h1>Coming Soon</h1>
+
+    <p>
+      The BrickPlanet item database is being built.
+      Track items, values, owners, and sales — all in one place.
+    </p>
+
+    <div class="line"></div>
+
+    <div class="footer">
+      brickimons.xyz
     </div>
 
-    <label>Starting user</label>
-    <input id="start" placeholder="1TEEHEET">
-
-    <label>Ending user</label>
-    <input id="target" placeholder="haz3mn">
-
-    <button id="button" onclick="startSearch()">
-        Find Connection
-    </button>
-
-    <div id="status"></div>
-
-    <div id="result"></div>
-
-</div>
-
-
-<script>
-
-const FRIEND_API =
-    "https://api.blueberlix69.workers.dev/get-friends";
-
-
-/*
-    Roblox username -> user ID
-*/
-async function getUserId(username) {
-
-    const response = await fetch(
-        "https://users.roblox.com/v1/usernames/users",
-        {
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                usernames: [username],
-                excludeBannedUsers: false
-            })
-        }
-    );
-
-    if (!response.ok) {
-        throw new Error(
-            "Roblox username lookup failed."
-        );
-    }
-
-    const data = await response.json();
-
-    if (!data.data || data.data.length === 0) {
-        throw new Error(
-            `Roblox user "${username}" was not found.`
-        );
-    }
-
-    return {
-        id: data.data[0].id,
-        name: data.data[0].name
-    };
-}
-
-
-/*
-    Get friends from YOUR API.
-*/
-async function getFriends(userId) {
-
-    const response = await fetch(
-        FRIEND_API + "?id=" + encodeURIComponent(userId)
-    );
-
-    if (!response.ok) {
-        throw new Error(
-            "Friend API returned an error."
-        );
-    }
-
-    const data = await response.json();
-
-    /*
-        Your API returns:
-
-        {
-            count: 0,
-            friends: [],
-            errors: ""
-        }
-    */
-
-    if (data.errors) {
-        throw new Error(data.errors);
-    }
-
-    return data.friends || [];
-}
-
-
-/*
-    Try to get an ID from different possible
-    friend-object formats.
-*/
-function getFriendId(friend) {
-
-    return (
-        friend.id ??
-        friend.userId ??
-        friend.user_id ??
-        friend.userID
-    );
-}
-
-
-/*
-    Try to get a username from different
-    possible friend-object formats.
-*/
-function getFriendName(friend) {
-
-    return (
-        friend.name ??
-        friend.username ??
-        friend.displayName ??
-        friend.display_name ??
-        String(getFriendId(friend))
-    );
-}
-
-
-/*
-    Breadth First Search.
-
-    This finds the shortest number of friend
-    connections.
-*/
-async function shortestPath(start, target) {
-
-    const queue = [
-        {
-            id: start.id,
-            name: start.name,
-            path: [start]
-        }
-    ];
-
-    const visited = new Set();
-
-    visited.add(String(start.id));
-
-
-    while (queue.length > 0) {
-
-        const current = queue.shift();
-
-
-        /*
-            Found target!
-        */
-        if (
-            String(current.id) ===
-            String(target.id)
-        ) {
-            return current.path;
-        }
-
-
-        const friends =
-            await getFriends(current.id);
-
-
-        for (const friend of friends) {
-
-            const id = getFriendId(friend);
-
-            if (!id) {
-                continue;
-            }
-
-
-            if (visited.has(String(id))) {
-                continue;
-            }
-
-
-            visited.add(String(id));
-
-
-            const user = {
-                id: id,
-                name: getFriendName(friend)
-            };
-
-
-            queue.push({
-                id: id,
-                name: user.name,
-                path: [
-                    ...current.path,
-                    user
-                ]
-            });
-        }
-
-
-        /*
-            Update the screen so the user knows
-            the search is still running.
-        */
-        document.getElementById("status").innerText =
-            "Searching... checked " +
-            visited.size +
-            " users";
-    }
-
-
-    return null;
-}
-
-
-/*
-    Main search function.
-*/
-async function startSearch() {
-
-    const startName =
-        document.getElementById("start")
-            .value.trim();
-
-    const targetName =
-        document.getElementById("target")
-            .value.trim();
-
-    const button =
-        document.getElementById("button");
-
-    const status =
-        document.getElementById("status");
-
-    const result =
-        document.getElementById("result");
-
-
-    result.innerHTML = "";
-
-
-    if (!startName || !targetName) {
-
-        status.innerHTML =
-            '<span class="error">' +
-            'Enter both usernames.' +
-            '</span>';
-
-        return;
-    }
-
-
-    button.disabled = true;
-
-
-    try {
-
-        status.innerText =
-            "Looking up Roblox users...";
-
-
-        const start =
-            await getUserId(startName);
-
-        const target =
-            await getUserId(targetName);
-
-
-        if (String(start.id) === String(target.id)) {
-
-            result.innerHTML =
-                `<div class="person">${escapeHtml(start.name)}</div>`;
-
-            status.innerText =
-                "That's the same user.";
-
-            return;
-        }
-
-
-        status.innerText =
-            "Searching the friend network...";
-
-
-        const path =
-            await shortestPath(start, target);
-
-
-        if (!path) {
-
-            status.innerHTML =
-                '<span class="error">' +
-                'No connection was found.' +
-                '</span>';
-
-            return;
-        }
-
-
-        status.innerText =
-            "Connection found!";
-
-
-        let html =
-            '<div class="path">';
-
-
-        path.forEach((user, index) => {
-
-            html +=
-                `<div class="person">
-                    ${escapeHtml(user.name)}
-                </div>`;
-
-
-            if (index < path.length - 1) {
-
-                html +=
-                    '<div class="arrow">↓</div>';
-            }
-
-        });
-
-
-        html += "</div>";
-
-
-        const connections =
-            path.length - 1;
-
-
-        html +=
-            `<div class="distance">
-                ${connections}
-                connection${connections === 1 ? "" : "s"}
-            </div>`;
-
-
-        result.innerHTML = html;
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        status.innerHTML =
-            `<span class="error">
-                ${escapeHtml(error.message)}
-            </span>`;
-
-    } finally {
-
-        button.disabled = false;
-    }
-}
-
-
-/*
-    Prevent usernames/API data from injecting HTML.
-*/
-function escapeHtml(value) {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-</script>
-
+  </main>
 </body>
 </html>
